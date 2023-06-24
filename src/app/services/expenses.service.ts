@@ -1,8 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-// import { environment } from 'src/environments/environment.prod';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
+// import { environment } from 'src/environments/environment';
 import { Spent, Expense, ExpenseResp } from '../interfaces/expense.interface';
 import { tokenHeader } from '../utils/getConfig';
 

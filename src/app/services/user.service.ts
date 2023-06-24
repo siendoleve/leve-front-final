@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-// import { environment } from 'src/environments/environment.prod';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
+// import { environment } from 'src/environments/environment';
 import { LoginForm } from '../interfaces/login-form.interface';
 import { LoginResp } from '../interfaces/login-resp.interface';
 import { RegisterForm } from '../interfaces/register-form.interface';
