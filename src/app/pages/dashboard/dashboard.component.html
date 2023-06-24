@@ -1,0 +1,257 @@
+<div class="container-fluid">
+  <div class="col-12">
+    <h1>Informes</h1>
+    <div class="separator mb-5"></div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="mb-4">Filtrado</h5>
+          <form autocomplete="false" [formGroup]="reportForm">
+            <div class="form-group mb-3">
+              <label>Fecha Inicial</label>
+              <input
+                type="date"
+                class="form-control datepicker"
+                formControlName="startDate"
+              />
+            </div>
+            <div class="form-group mb-3">
+              <label>Fecha Final</label>
+              <input
+                type="date"
+                class="form-control datepicker"
+                formControlName="endDate"
+              />
+            </div>
+            <button
+              type="button"
+              (click)="executeAllReportsByPressFilter()"
+              class="btn btn-primary mb-1"
+            >
+              Filtrar
+            </button>
+            &nbsp;
+            <button (click)="totalReport()" class="btn btn-primary mb-1">
+              Filtro Total
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="icon-cards-row">
+        <div class="glide dashboard-numbers">
+          <div class="glide__track" data-glide-el="track">
+            <ul class="glide__slides row">
+              <li class="glide__slide col-lg-3 col-md-4 col-sm-6 col-12">
+                <div class="card">
+                  <div class="card-body text-center">
+                    <i class="iconsminds-handshake"></i>
+                    <p class="card-text mb-0">Botellas Reutilizadas</p>
+
+                    <p class="lead text-center">
+                      {{ resuedBottle }}
+                    </p>
+                  </div>
+                </div>
+              </li>
+
+              <li
+                class="glide__slide col-lg-3 col-md-4 col-sm-6 col-12"
+                *ngFor="let purchase of purchases"
+              >
+                <div class="card">
+                  <div class="card-body text-center">
+                    <i class="iconsminds-handshake"></i>
+                    <p class="card-text mb-0">Ventas Por Periodo</p>
+                    <p class="card-text mb-0">{{ purchase.product_title }}</p>
+                    <p class="lead text-center">
+                      {{ purchase.total_price | currency }}
+                    </p>
+                    <p class="card-text mb-0">{{ purchase.total_quantity }}</p>
+                  </div>
+                </div>
+              </li>
+
+              <li
+                class="glide__slide col-lg-3 col-md-4 col-sm-6 col-12"
+                *ngFor="let spent of spents"
+              >
+                <div class="card">
+                  <div class="card-body text-center">
+                    <i class="iconsminds-handshake"></i>
+                    <p class="card-text mb-0">Gastos por Periodo</p>
+                    <p class="card-text mb-0">{{ spent.spent_type_name }}</p>
+                    <p class="lead text-center mb-0">
+                      {{ spent.total | currency }}
+                    </p>
+                  </div>
+                </div>
+              </li>
+
+              <li
+                class="glide__slide col-lg-3 col-md-4 col-sm-6 col-12"
+                *ngFor="let income of incomes"
+              >
+                <div class="card">
+                  <div class="card-body text-center">
+                    <i class="iconsminds-handshake"></i>
+                    <p class="card-text mb-0">Ingresos por Periodo</p>
+                    <p class="card-text mb-0">{{ income.income_type_name }}</p>
+                    <p class="lead text-center mb-0">
+                      {{ income.total | currency }}
+                    </p>
+                  </div>
+                </div>
+              </li>
+
+              <li
+                class="glide__slide col-lg-3 col-md-4 col-sm-6 col-12"
+                *ngFor="let asset of economicAssets"
+              >
+                <div class="card">
+                  <div class="card-body text-center">
+                    <i class="iconsminds-handshake"></i>
+                    <p class="card-text mb-0">Bienes economicos</p>
+                    <p class="card-text mb-0">{{ asset.name }}</p>
+                    <p class="lead text-center mb-0">
+                      {{ asset.value | currency }}
+                    </p>
+                  </div>
+                </div>
+              </li>
+
+              <li class="glide__slide col-lg-3 col-md-4 col-sm-6 col-12">
+                <div class="card">
+                  <div class="card-body text-center">
+                    <i class="iconsminds-handshake"></i>
+                    <p class="card-text mb-0">Capital de trabajo en efectivo</p>
+                    <p class="lead text-center">
+                      {{ profitReport.baseMoney | currency }}
+                    </p>
+                  </div>
+                </div>
+              </li>
+
+              <li class="glide__slide col-lg-3 col-md-4 col-sm-6 col-12">
+                <div class="card">
+                  <div class="card-body text-center">
+                    <i class="iconsminds-handshake"></i>
+                    <p class="card-text mb-0">Capital de trabajo</p>
+                    <p class="lead text-center">
+                      {{ profitReport.workingCapital | currency }}
+                    </p>
+                  </div>
+                </div>
+              </li>
+
+              <li class="glide__slide col-lg-3 col-md-4 col-sm-6 col-12">
+                <div class="card">
+                  <div class="card-body text-center">
+                    <i class="iconsminds-handshake"></i>
+                    <p class="card-text mb-0">Utilidad</p>
+                    <p class="lead text-center">
+                      {{ profitReport.utility | currency }}
+                    </p>
+                  </div>
+                </div>
+              </li>
+
+              <li class="glide__slide col-lg-3 col-md-4 col-sm-6 col-12">
+                <div class="card">
+                  <div class="card-body text-center">
+                    <i class="iconsminds-handshake"></i>
+                    <p class="card-text mb-0">Facturado</p>
+                    <p class="lead text-center">
+                      {{ profitReport.totalBuy | currency }}
+                    </p>
+                  </div>
+                </div>
+              </li>
+
+              <!-- <li class="glide__slide col-lg-3 col-md-4 col-sm-6 col-12">
+                  <div class="card">
+                    <div class="card-body text-center">
+                      <i class="iconsminds-line-chart-1"></i>
+                      <p class="card-text mb-0">Ganancia Por Periodo</p>
+                      <p class="lead text-center">
+                        {{ proceeds | currency : "COP" }}
+                      </p>
+                    </div>
+                  </div>
+                </li> -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div
+    class="alert alert-info"
+    *ngIf="barChartData.labels?.length === 0; else divGraphic"
+  >
+    cargando...
+  </div>
+  
+  <div
+    class="alert alert-info"
+    *ngIf="barChartDataExpensesVsProceeds.labels?.length === 0; else divGraphic2"
+  >
+    cargando...
+  </div>
+  
+  <div class="container-fluid">
+    <div class="row">
+      <ng-template #divGraphic>
+        <div class="col-12">
+          <canvas
+            baseChart
+            class="chart"
+            [data]="barChartData"
+            [options]="barChartOptions"
+            [type]="barChartType"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"
+          >
+          </canvas>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  
+  <div class="container-fluid">
+    <div class="row">
+      <ng-template #divGraphic2>
+        <div class="col-12">
+          <canvas
+            baseChart
+            class="chart"
+            [data]="barChartDataExpensesVsProceeds"
+            [options]="barChartOptions"
+            [type]="barChartType"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"
+          >
+          </canvas>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  
+  <!-- <google-chart #chart
+     [title]="title"
+     [type]="type"
+     [data]="data"
+     
+     [options]="options"
+     [width]="width"
+     [height]="height">
+  </google-chart> -->

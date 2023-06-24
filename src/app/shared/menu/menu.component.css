@@ -1,0 +1,4 @@
+.scroll-p {
+  scroll-behavior: smooth !important;
+  overflow-y: auto;
+}
